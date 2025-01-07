@@ -1,0 +1,101 @@
+﻿Marca,Categoria,Tamanho,Cidade,Preço (R$),Quantidade Vendida
+Richards,Camisa,M,Curitiba,98.35,6
+Richards,Calça,M,São Paulo,171.49,6
+Aviator,Calça,P,Curitiba,221.85,2
+Aviator,Jaqueta,P,Belo Horizonte,277.6,19
+Aviator,Camisa,G,Porto Alegre,95.94,12
+Aramis,Jaqueta,M,Porto Alegre,262.86,12
+Aramis,Jaqueta,G,Belo Horizonte,488.04,14
+Richards,Bermuda,G,São Paulo,84.92,11
+Lacoste,Camiseta,P,Porto Alegre,132.08,10
+Aramis,Bermuda,M,Curitiba,181.77,17
+Aviator,Camisa,P,Porto Alegre,199.3,16
+Lacoste,Calça,M,Rio de Janeiro,150.11,18
+Lacoste,Camiseta,GG,Rio de Janeiro,149.48,5
+Aviator,Calça,G,Porto Alegre,147.52,13
+Aviator,Calça,GG,Belo Horizonte,212.35,2
+Richards,Camisa,GG,São Paulo,239.01,15
+Richards,Calça,P,Curitiba,120.14,5
+Richards,Camisa,G,Rio de Janeiro,163.4,20
+Aramis,Jaqueta,M,Belo Horizonte,459.34,17
+Aviator,Camiseta,G,Belo Horizonte,149.81,5
+Lacoste,Bermuda,P,São Paulo,155.54,3
+Aramis,Camiseta,P,Porto Alegre,124.45,12
+Lacoste,Calça,G,Rio de Janeiro,187.24,16
+Lacoste,Bermuda,G,Curitiba,107.54,1
+Aviator,Bermuda,G,Rio de Janeiro,170.63,13
+Aviator,Calça,GG,Curitiba,201.14,9
+Polo Halp Lorem,Bermuda,G,Rio de Janeiro,164.23,6
+Richards,Camisa,G,Rio de Janeiro,191.59,19
+Aramis,Camisa,G,São Paulo,220.34,5
+Lacoste,Bermuda,P,Belo Horizonte,100.97,16
+Aramis,Jaqueta,G,Porto Alegre,438.23,12
+Lacoste,Calça,P,Rio de Janeiro,226.56,6
+Aviator,Camiseta,M,Rio de Janeiro,147.22,14
+Richards,Camiseta,P,Belo Horizonte,137.58,11
+Aviator,Bermuda,G,Porto Alegre,133.37,2
+Polo Halp Lorem,Jaqueta,G,Porto Alegre,454.8,15
+Aramis,Bermuda,P,Belo Horizonte,93.4,19
+Polo Halp Lorem,Camisa,GG,Porto Alegre,153.62,5
+Aramis,Jaqueta,P,Rio de Janeiro,451.54,14
+Aramis,Bermuda,P,Rio de Janeiro,161.61,1
+Aramis,Jaqueta,G,Rio de Janeiro,212.86,20
+Aramis,Camisa,GG,Rio de Janeiro,238.41,7
+Lacoste,Camiseta,P,Curitiba,112.17,6
+Richards,Camiseta,G,Porto Alegre,54.25,13
+Richards,Jaqueta,M,Rio de Janeiro,365.48,17
+Polo Halp Lorem,Camiseta,G,Curitiba,101.0,10
+Richards,Jaqueta,G,São Paulo,412.83,3
+Aviator,Jaqueta,P,Rio de Janeiro,430.38,2
+Polo Halp Lorem,Camisa,GG,Porto Alegre,176.16,15
+Lacoste,Camiseta,GG,Curitiba,89.68,12
+Richards,Calça,M,São Paulo,214.32,19
+Aviator,Camiseta,G,São Paulo,105.84,18
+Polo Halp Lorem,Camisa,GG,São Paulo,231.1,1
+Polo Halp Lorem,Bermuda,P,Belo Horizonte,85.96,11
+Aramis,Jaqueta,M,São Paulo,346.4,15
+Aramis,Bermuda,M,São Paulo,165.37,18
+Aramis,Camiseta,GG,Belo Horizonte,68.91,3
+Lacoste,Jaqueta,P,Belo Horizonte,296.5,15
+Aviator,Jaqueta,GG,Porto Alegre,302.29,5
+Richards,Jaqueta,G,Rio de Janeiro,470.86,9
+Polo Halp Lorem,Camisa,G,São Paulo,228.54,5
+Aramis,Camisa,M,Curitiba,172.5,20
+Polo Halp Lorem,Bermuda,GG,Curitiba,153.35,20
+Aviator,Jaqueta,G,Curitiba,360.11,20
+Polo Halp Lorem,Camisa,M,Belo Horizonte,210.56,10
+Lacoste,Camiseta,M,Porto Alegre,130.97,3
+Lacoste,Camiseta,GG,São Paulo,82.77,16
+Richards,Calça,G,Belo Horizonte,259.38,16
+Lacoste,Calça,G,Curitiba,242.4,17
+Polo Halp Lorem,Bermuda,P,Porto Alegre,137.16,19
+Polo Halp Lorem,Bermuda,G,Rio de Janeiro,80.88,4
+Richards,Calça,M,Belo Horizonte,278.96,11
+Aramis,Camiseta,M,Curitiba,54.12,15
+Aramis,Bermuda,GG,Belo Horizonte,170.09,16
+Aramis,Bermuda,M,Belo Horizonte,144.36,6
+Aramis,Bermuda,M,Belo Horizonte,139.74,12
+Polo Halp Lorem,Calça,M,Rio de Janeiro,149.34,11
+Richards,Calça,P,Rio de Janeiro,277.64,14
+Aviator,Bermuda,GG,Porto Alegre,87.18,15
+Aviator,Calça,M,Belo Horizonte,237.8,15
+Richards,Jaqueta,M,Belo Horizonte,278.83,20
+Lacoste,Calça,M,Curitiba,102.07,5
+Polo Halp Lorem,Calça,G,Belo Horizonte,262.95,9
+Richards,Jaqueta,P,Rio de Janeiro,420.68,16
+Lacoste,Jaqueta,M,Rio de Janeiro,312.99,5
+Polo Halp Lorem,Calça,GG,Curitiba,236.13,8
+Lacoste,Calça,M,São Paulo,296.09,1
+Aviator,Jaqueta,G,Rio de Janeiro,409.32,8
+Richards,Camisa,P,São Paulo,184.64,18
+Aramis,Camiseta,M,São Paulo,113.86,11
+Lacoste,Camisa,G,Porto Alegre,230.75,5
+Aramis,Calça,P,Belo Horizonte,259.55,9
+Polo Halp Lorem,Camisa,P,Belo Horizonte,192.96,7
+Lacoste,Jaqueta,P,Porto Alegre,373.92,10
+Richards,Calça,GG,Rio de Janeiro,213.02,16
+Aramis,Bermuda,P,São Paulo,99.62,14
+Polo Halp Lorem,Jaqueta,GG,Rio de Janeiro,206.76,10
+Aviator,Bermuda,P,São Paulo,198.14,2
+Aramis,Calça,P,Belo Horizonte,289.81,2
+Aviator,Camisa,GG,Rio de Janeiro,180.46,3

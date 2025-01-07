@@ -1,0 +1,76 @@
+Medidas de Tendência Central:
+
+Média Aritmética: Concluído
+
+Utilizada para dados quantitativos contínuos e discretos.
+Representa o valor central de um conjunto de dados.
+Fórmula:
+Média (X̄) = Σx / n
+onde:
+Σx é a soma de todos os valores de x
+n é o número total de observações
+Mediana:
+
+Representa o valor que divide um conjunto de dados ordenados em duas partes iguais.
+É menos sensível a valores extremos do que a média.
+
+Moda:
+Representa o valor que ocorre com maior frequência em um conjunto de dados.
+Pode haver mais de uma moda (distribuição multimodal) ou nenhuma moda (distribuição amodal).
+Medidas de Dispersão:
+
+Variância:
+
+Mede o quanto os dados se desviam da média.
+Fórmula:
+Variância (s²) = Σ(x - X̄)² / (n - 1)
+onde:
+x é cada valor individual
+X̄ é a média
+n é o número total de observações
+Desvio Padrão:
+
+É a raiz quadrada da variância e possui a mesma unidade de medida dos dados originais.
+Fórmula:
+Desvio Padrão (s) = √[Σ(x - X̄)² / (n - 1)]
+Probabilidade:
+
+Regra da Adição:
+Probabilidade da união de dois eventos mutuamente exclusivos.
+P(A ou B) = P(A) + P(B)
+Regra da Multiplicação:
+Probabilidade da interseção de dois eventos independentes.
+P(A e B) = P(A) * P(B)
+Distribuições de Probabilidade:
+
+Distribuição Binomial:
+
+Modela o número de sucessos em n ensaios independentes de Bernoulli.
+Fórmula:
+P(X = k) = C(n, k) * p^k * (1-p)^(n-k)
+onde:
+n é o número de ensaios
+k é o número de sucessos
+p é a probabilidade de sucesso em cada ensaio
+C(n, k) é a combinação de n elementos tomados k a k
+Distribuição Normal:
+
+Uma das distribuições mais importantes em estatística, com forma de sino.
+Caracterizada pela média (μ) e pelo desvio padrão (σ).
+A probabilidade de um valor cair em um determinado intervalo é calculada usando a tabela da distribuição normal padrão (Z).
+Abre em uma nova janela
+www.scribbr.com
+Normal distribution curve
+Estatística Inferencial:
+
+Estimativa:
+Processo de usar informações de uma amostra para inferir sobre uma população.
+Ex: média amostral como estimativa da média populacional.
+Teste de Hipóteses:
+Procedimento para tomar decisões sobre parâmetros populacionais com base em dados amostrais.
+Envolve a formulação de hipóteses nula e alternativa, cálculo do valor-p e comparação com o nível de significância.
+Outras Fórmulas:
+
+Coeficiente de Correlação: Mede a força e a direção da relação linear entre duas variáveis.
+Regressão Linear: Modela a relação linear entre uma variável dependente e uma ou mais variáveis independentes.
+Análise de Variância (ANOVA): Compara as médias de três ou mais grupos.
