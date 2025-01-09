@@ -7,7 +7,7 @@ Formulas Estatísticas:
 ✔ Amplitude Total
 ✔ Variância
 ✔ Erro padrão de média
-Coeficiente de Variância
+✔ Coeficiente de Variância
 Teste de Hipóteses
 Teoria da Probabilidade
 Inferência Estatística
