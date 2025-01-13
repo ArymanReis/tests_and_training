@@ -8,8 +8,8 @@ Formulas Estatísticas:
 ✔ Variância
 ✔ Erro padrão de média
 ✔ Coeficiente de Variância
-Teste de Hipóteses
-Teoria da Probabilidade
+✔ Teste de Hipóteses
+✔ Teoria da Probabilidade
 Inferência Estatística
 Modelos Lineares
 Análise Multivariada
