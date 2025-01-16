@@ -10,11 +10,4 @@ Formulas Estatísticas:
 ✔ Coeficiente de Variância
 ✔ Teste de Hipóteses
 ✔ Teoria da Probabilidade
-Inferência Estatística
-Modelos Lineares
-Análise Multivariada
-Modelos Não Lineares
-Séries Temporais
-Amostragem
-Métodos Bayesianos
-Aprendizado Estatístico e Machine Learning
+✔ Inferência Estatística
