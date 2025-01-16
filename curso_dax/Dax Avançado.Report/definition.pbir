@@ -1,0 +1,9 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../Dax Avançado.SemanticModel"
+    },
+    "byConnection": null
+  }
+}

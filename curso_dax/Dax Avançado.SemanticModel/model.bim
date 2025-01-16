@@ -1,0 +1,3273 @@
+{
+  "compatibilityLevel": 1567,
+  "model": {
+    "annotations": [
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      },
+      {
+        "name": "PBIDesktopVersion",
+        "value": "2.138.1452.0 (24.11)"
+      },
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"Caminho\",\"dim_clientes\",\"dim_canal\",\"dim_categoria\",\"dim_subcategoria\",\"dim_marca\",\"dim_produto\",\"fato_vendas\",\"Parâmetro1\",\"Transformar o Arquivo de Exemplo\",\"Arquivo de Amostra\",\"Transformar Arquivo\",\"medidas\",\"aux_analise\",\"dim_cidade\",\"Tab_Medidas\",\"aux_medidas\",\"aux_segmentacao\"]"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
+    "culture": "pt-BR",
+    "cultures": [
+      {
+        "name": "pt-BR",
+        "linguisticMetadata": {
+          "content": {
+            "Language": "en-US",
+            "Version": "1.0.0"
+          },
+          "contentType": "json"
+        }
+      }
+    ],
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "expressions": [
+      {
+        "name": "Caminho",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Text"
+          }
+        ],
+        "expression": "\"C:\\Users\\aryma\\OneDrive\\Documentos\\Cursos e Materiais de Estudos\\Bases\\\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "kind": "m",
+        "lineageTag": "c1b1d79d-6818-4686-8288-1eb4036d1bed"
+      },
+      {
+        "name": "Parâmetro1",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Binary"
+          }
+        ],
+        "expression": "#\"Arquivo de Amostra\" meta [IsParameterQuery=true, BinaryIdentifier=#\"Arquivo de Amostra\", Type=\"Binary\", IsParameterQueryRequired=true]",
+        "kind": "m",
+        "lineageTag": "0d8dc5f5-00ff-4907-920c-dc0ffbe388e0",
+        "queryGroup": "Importação de Pasta\\fato_vendas\\Consultas Auxiliares"
+      },
+      {
+        "name": "Transformar o Arquivo de Exemplo",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "expression": [
+          "let",
+          "    Fonte = Excel.Workbook(Parâmetro1, null, true),",
+          "    Planilha1_Sheet = Fonte{[Item=\"Planilha1\",Kind=\"Sheet\"]}[Data],",
+          "    #\"Linhas Superiores Removidas\" = Table.Skip(Planilha1_Sheet,4),",
+          "    #\"Cabeçalhos Promovidos\" = Table.PromoteHeaders(#\"Linhas Superiores Removidas\", [PromoteAllScalars=true])",
+          "in",
+          "    #\"Cabeçalhos Promovidos\""
+        ],
+        "kind": "m",
+        "lineageTag": "9869bd1e-1cbf-4ea4-b4a0-51cf971f06d1",
+        "queryGroup": "Importação de Pasta\\fato_vendas"
+      },
+      {
+        "name": "Arquivo de Amostra",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Binary"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "expression": [
+          "let",
+          "    Fonte = Folder.Files(Caminho & \"Fato\\\"),",
+          "    #\"Outras Colunas Removidas\" = Table.SelectColumns(Fonte,{\"Content\"}),",
+          "    Navegação1 = #\"Outras Colunas Removidas\"{0}[Content]",
+          "in",
+          "    Navegação1"
+        ],
+        "kind": "m",
+        "lineageTag": "a077d8ff-0f80-478b-a305-3a7041fde240",
+        "queryGroup": "Importação de Pasta\\fato_vendas\\Consultas Auxiliares"
+      },
+      {
+        "name": "Transformar Arquivo",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Function"
+          }
+        ],
+        "expression": [
+          "let",
+          "    Fonte = (Parâmetro1 as binary) => let",
+          "        Fonte = Excel.Workbook(Parâmetro1, null, true),",
+          "        Planilha1_Sheet = Fonte{[Item=\"Planilha1\",Kind=\"Sheet\"]}[Data],",
+          "        #\"Linhas Superiores Removidas\" = Table.Skip(Planilha1_Sheet,4),",
+          "        #\"Cabeçalhos Promovidos\" = Table.PromoteHeaders(#\"Linhas Superiores Removidas\", [PromoteAllScalars=true])",
+          "    in",
+          "        #\"Cabeçalhos Promovidos\"",
+          "in",
+          "    Fonte"
+        ],
+        "kind": "m",
+        "lineageTag": "902bc25a-95db-4fbf-8f8e-169e42514333",
+        "queryGroup": "Importação de Pasta\\fato_vendas\\Consultas Auxiliares"
+      },
+      {
+        "name": "medidas",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "expression": [
+          "let",
+          "    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#\"Coluna 1\" = _t]),",
+          "    #\"Tipo Alterado\" = Table.TransformColumnTypes(Fonte,{{\"Coluna 1\", type text}}),",
+          "    #\"Colunas Removidas\" = Table.RemoveColumns(#\"Tipo Alterado\",{\"Coluna 1\"})",
+          "in",
+          "    #\"Colunas Removidas\""
+        ],
+        "kind": "m",
+        "lineageTag": "ed7620f0-218b-482e-99a3-f8dfbad49b30"
+      }
+    ],
+    "queryGroups": [
+      {
+        "annotations": [
+          {
+            "name": "PBI_QueryGroupOrder",
+            "value": "0"
+          }
+        ],
+        "folder": "Dimensão"
+      },
+      {
+        "annotations": [
+          {
+            "name": "PBI_QueryGroupOrder",
+            "value": "1"
+          }
+        ],
+        "folder": "Fato"
+      },
+      {
+        "annotations": [
+          {
+            "name": "PBI_QueryGroupOrder",
+            "value": "0"
+          }
+        ],
+        "folder": "Importação de Pasta\\fato_vendas"
+      },
+      {
+        "annotations": [
+          {
+            "name": "PBI_QueryGroupOrder",
+            "value": "0"
+          }
+        ],
+        "folder": "Importação de Pasta\\fato_vendas\\Consultas Auxiliares"
+      },
+      {
+        "annotations": [
+          {
+            "name": "PBI_QueryGroupOrder",
+            "value": "4"
+          }
+        ],
+        "folder": "Importação de Pasta"
+      }
+    ],
+    "relationships": [
+      {
+        "name": "2a589306-e789-4c18-bce9-473195cf7037",
+        "fromColumn": "ID_Cliente",
+        "fromTable": "fato_vendas",
+        "toColumn": "ID_Cliente",
+        "toTable": "dim_clientes"
+      },
+      {
+        "name": "35cc3cb2-9e17-4497-b1c5-dc7d4db0cf99",
+        "fromColumn": "ID_Canal",
+        "fromTable": "fato_vendas",
+        "toColumn": "ID_Canal",
+        "toTable": "dim_canal"
+      },
+      {
+        "name": "508d62df-873d-4c07-8a60-d42437cea8e5",
+        "fromColumn": "ID_Categoria",
+        "fromTable": "dim_subcategoria",
+        "toColumn": "ID_Categoria",
+        "toTable": "dim_categoria"
+      },
+      {
+        "name": "67980271-3ace-4619-9400-7b4d1732c1be",
+        "fromColumn": "ID_Subcategoria",
+        "fromTable": "dim_produto",
+        "toColumn": "ID_Subcategoria",
+        "toTable": "dim_subcategoria"
+      },
+      {
+        "name": "63a8bd1d-52f6-4f07-a0d2-96e01bc44f0d",
+        "fromColumn": "ID_Marca",
+        "fromTable": "dim_produto",
+        "toColumn": "ID_Marca",
+        "toTable": "dim_marca"
+      },
+      {
+        "name": "1ff310b2-659e-4408-b458-1c8b9ae24a4a",
+        "fromColumn": "Data_Venda",
+        "fromTable": "fato_vendas",
+        "toColumn": "Data",
+        "toTable": "dim_calendario"
+      },
+      {
+        "name": "91b7e8b6-d7e4-4417-8e0f-99263b0dcb2e",
+        "fromColumn": "ID_Produto",
+        "fromTable": "fato_vendas",
+        "toColumn": "ID_Produto",
+        "toTable": "dim_produto"
+      },
+      {
+        "name": "cac73512-0475-4444-8ae2-b94987bb90ab",
+        "fromColumn": "ID_Cidade",
+        "fromTable": "dim_clientes",
+        "toColumn": "ID_Cidade",
+        "toTable": "dim_cidade"
+      },
+      {
+        "name": "312d3b72-7d81-0ef8-3531-b5b3ac310821",
+        "fromColumn": "Data_Entrega",
+        "fromTable": "fato_vendas",
+        "isActive": false,
+        "toColumn": "Data",
+        "toTable": "dim_calendario"
+      }
+    ],
+    "sourceQueryCulture": "pt-BR",
+    "tables": [
+      {
+        "name": "dim_clientes",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ID_Cliente",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "ef1b3762-7761-47b4-aeed-0550064b2e79",
+            "sourceColumn": "ID_Cliente",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Primeiro Nome",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "9ac570f0-66ee-4016-8999-8ddfb2087d1a",
+            "sourceColumn": "Primeiro Nome",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Sobrenome",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "68435b19-eb36-4f7e-ad99-1447df52a5d1",
+            "sourceColumn": "Sobrenome",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data Nascimento",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "FormatString"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Short Date",
+            "lineageTag": "32392d0f-eea3-42e8-a573-a4acaa044dc7",
+            "sourceColumn": "Data Nascimento",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Estado Civil",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "24429ea7-36c2-464a-89a9-500b3c34015e",
+            "sourceColumn": "Estado Civil",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Gênero",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "cb318fe5-b22e-43f4-a081-c0f0de56c7c7",
+            "sourceColumn": "Gênero",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Educação",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "cd5272e7-4a2e-44d9-bcf3-b4d02d0aa47e",
+            "sourceColumn": "Educação",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Nome Completo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "07f461c0-beba-4b45-a02f-66a192db806e",
+            "sourceColumn": "Nome Completo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ID_Cidade",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "913eac28-6195-40bc-b71e-c0ae078d60bd",
+            "sourceColumn": "ID_Cidade",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "c5fe1e5c-15f6-4cc5-85f8-21b9d01d7135",
+        "partitions": [
+          {
+            "name": "dim_clientes-c34a27e5-6d9a-498d-b1f9-4d0193e03837",
+            "mode": "import",
+            "queryGroup": "Dimensão",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(Caminho & \"Dimensão\\Clientes.txt\"),[Delimiter=\"\t\", Columns=8, Encoding=1200, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Cabeçalhos Promovidos\" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    #\"Valor Substituído\" = Table.ReplaceValue(#\"Cabeçalhos Promovidos\",\"'\",\"\",Replacer.ReplaceText,{\"Data Nascimento\"}),",
+                "    #\"Tipo Alterado com Localidade\" = Table.TransformColumnTypes(#\"Valor Substituído\", {{\"Data Nascimento\", type date}}, \"en-US\"),",
+                "    #\"Coluna Mesclada Inserida\" = Table.AddColumn(#\"Tipo Alterado com Localidade\", \"Nome Completo\", each Text.Combine({[Primeiro Nome], \" \", [Sobrenome]}), type text),",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(#\"Coluna Mesclada Inserida\",{{\"ID_Cliente\", Int64.Type}, {\"ID_Cidade\", Int64.Type}})",
+                "in",
+                "    #\"Tipo Alterado\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_canal",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ID_Canal",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "912d8943-acda-4688-b08e-8bd13f1de2a9",
+            "sourceColumn": "ID_Canal",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Descricao_Canal",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "13e53de4-aed6-4cde-975d-010c792e6226",
+            "sourceColumn": "Descricao_Canal",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "81b1d4a1-70ec-4262-a450-9f4024392e13",
+        "partitions": [
+          {
+            "name": "dim_canal-9111e184-0c94-44a7-91e6-ad8a61eda395",
+            "mode": "import",
+            "queryGroup": "Dimensão",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Excel.Workbook(File.Contents(Caminho & \"Dimensão\\Canal.xlsx\"), null, true),",
+                "    Canal_Table = Fonte{[Item=\"Canal\",Kind=\"Table\"]}[Data],",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(Canal_Table,{{\"ID_Canal\", Int64.Type}, {\"Descricao_Canal\", type text}})",
+                "in",
+                "    #\"Tipo Alterado\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_categoria",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ID_Categoria",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "ac69bee9-110b-4876-b0b1-a26e56320a1c",
+            "sourceColumn": "ID_Categoria",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Categoria",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "2a3c7b00-4e4f-4d2e-809e-25864a19a731",
+            "sourceColumn": "Categoria",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "522bf4b2-ed4b-467b-8cf9-cd693210fb50",
+        "partitions": [
+          {
+            "name": "dim_categoria-43664d47-712f-4cfa-a759-afceb1f51c39",
+            "mode": "import",
+            "queryGroup": "Dimensão",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Excel.Workbook(File.Contents(Caminho & \"Dimensão\\Categoria.xlsx\"), null, true),",
+                "    Categoria_Table = Fonte{[Item=\"Categoria\",Kind=\"Table\"]}[Data],",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(Categoria_Table,{{\"ID_Categoria\", Int64.Type}, {\"Categoria\", type text}})",
+                "in",
+                "    #\"Tipo Alterado\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_subcategoria",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ID_Categoria",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "6abe5adc-1eff-4858-8c12-297d81fe33aa",
+            "sourceColumn": "ID_Categoria",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ID_Subcategoria",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "8930aeb0-7e06-4eeb-9ae6-a30a5383c602",
+            "sourceColumn": "ID_Subcategoria",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Subcategoria",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "aedca33f-6046-40a0-8e72-d58044821d14",
+            "sourceColumn": "Subcategoria",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "47cf8e99-7f51-4c6c-97af-255aa8cee24b",
+        "partitions": [
+          {
+            "name": "dim_subcategoria-2b7b0277-5e72-4488-bfb4-ff07085c0eb2",
+            "mode": "import",
+            "queryGroup": "Dimensão",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Excel.Workbook(File.Contents(Caminho & \"Dimensão\\Subcategoria.xlsx\"), null, true),",
+                "    Subcategoria_Table = Fonte{[Item=\"Subcategoria\",Kind=\"Table\"]}[Data],",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(Subcategoria_Table,{{\"ID_Categoria\", Int64.Type}, {\"ID_Subcategoria\", Int64.Type}, {\"Subcategoria\", type text}})",
+                "in",
+                "    #\"Tipo Alterado\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_marca",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ID_Marca",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "508815ca-801b-4810-a545-86fcaa99afbf",
+            "sourceColumn": "ID_Marca",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Marca",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "e0427a92-349c-40c1-82b3-43d09a7c0018",
+            "sourceColumn": "Marca",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "42a52506-0ca7-4272-ad93-322c4ae51af1",
+        "partitions": [
+          {
+            "name": "dim_marca-b64234de-6f57-4448-9664-a8ecbfac27b6",
+            "mode": "import",
+            "queryGroup": "Dimensão",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Excel.Workbook(File.Contents(Caminho & \"Dimensão\\Marca.xlsx\"), null, true),",
+                "    Marca_Table = Fonte{[Item=\"Marca\",Kind=\"Table\"]}[Data],",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(Marca_Table,{{\"ID_Marca\", Int64.Type}, {\"Marca\", type text}})",
+                "in",
+                "    #\"Tipo Alterado\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_produto",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ID_Subcategoria",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "cfc24e6d-f3c3-456b-877d-3a99cc62b0f9",
+            "sourceColumn": "ID_Subcategoria",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ID_Produto",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "cd442e12-8ec0-4394-872a-8d71d043635a",
+            "sourceColumn": "ID_Produto",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Descricao_Produto",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "74de3634-d5d7-4d70-b040-81ec6ecf5b55",
+            "sourceColumn": "Descricao_Produto",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ID_Marca",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "41a67e39-85c5-449e-b316-f005634f1382",
+            "sourceColumn": "ID_Marca",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Preco_Unitario",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "18793efe-19d2-4d8c-a1d4-514b4f723bc5",
+            "sourceColumn": "Preco_Unitario",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Tributos",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "1259863a-429b-4332-986b-76ff92282bfe",
+            "sourceColumn": "Tributos",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Custo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "d12c70ca-d906-4454-be86-0062c129d6f2",
+            "sourceColumn": "Custo",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "b9537884-e576-4019-8f24-6bbbc9960889",
+        "partitions": [
+          {
+            "name": "dim_produto-5fcab9ab-acc8-4ece-bf1c-e5a8dbb9baf8",
+            "mode": "import",
+            "queryGroup": "Dimensão",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Excel.Workbook(File.Contents(Caminho & \"Dimensão\\Produto.xlsx\"), null, true),",
+                "    Produto_Table = Fonte{[Item=\"Produto\",Kind=\"Table\"]}[Data],",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(Produto_Table,{{\"ID_Subcategoria\", Int64.Type}, {\"ID_Produto\", type text}, {\"Descricao_Produto\", type text}, {\"ID_Marca\", Int64.Type}, {\"Preco_Unitario\", type number}, {\"Tributos\", type number}, {\"Custo\", type number}}),",
+                "    #\"Duplicatas Removidas\" = Table.Distinct(#\"Tipo Alterado\", {\"ID_Produto\"})",
+                "in",
+                "    #\"Duplicatas Removidas\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "fato_vendas",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Data_Venda",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "FormatString"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Short Date",
+            "lineageTag": "a7851c84-c172-4851-97cf-cebf7a73ce0c",
+            "sourceColumn": "Data_Venda",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Data_Entrega",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "FormatString"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Short Date",
+            "lineageTag": "4bf8879b-13f1-48af-9cdd-42357957cd8a",
+            "sourceColumn": "Data_Entrega",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ID_Canal",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "c2190f56-ed51-4ebf-8cee-c4e9436a21d2",
+            "sourceColumn": "ID_Canal",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ID_Cliente",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "391a0943-b8a4-45ba-b2b1-f1ab919bf285",
+            "sourceColumn": "ID_Cliente",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ID_Pedido",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "c6950621-bc43-495e-bcea-66f8e4146cc8",
+            "sourceColumn": "ID_Pedido",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "ID_Produto",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "96fa8130-879b-4e56-9757-f9de3eb0278f",
+            "sourceColumn": "ID_Produto",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Qtde",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "a436d601-f29d-49d3-9b20-8238348db0e5",
+            "sourceColumn": "Qtde",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Valor Total",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "a379077f-17d0-4769-8825-0af2f42bb8fe",
+            "sourceColumn": "Valor Total",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "708ba457-3c41-4ae5-9154-ceddedea57a6",
+        "partitions": [
+          {
+            "name": "fato_vendas-359931fb-32b2-4516-84cf-07c4def16008",
+            "mode": "import",
+            "queryGroup": "Fato",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Folder.Files(Caminho & \"Fato\\\"),",
+                "    #\"Outras Colunas Removidas\" = Table.SelectColumns(Fonte,{\"Content\"}),",
+                "    #\"Arquivos Ocultos Filtrados1\" = Table.SelectRows(#\"Outras Colunas Removidas\", each [Attributes]?[Hidden]? <> true),",
+                "    #\"Invocar Função Personalizada1\" = Table.AddColumn(#\"Arquivos Ocultos Filtrados1\", \"Transformar Arquivo\", each #\"Transformar Arquivo\"([Content])),",
+                "    #\"Outras Colunas Removidas1\" = Table.SelectColumns(#\"Invocar Função Personalizada1\", {\"Transformar Arquivo\"}),",
+                "    #\"Coluna de Tabela Expandida1\" = Table.ExpandTableColumn(#\"Outras Colunas Removidas1\", \"Transformar Arquivo\", Table.ColumnNames(#\"Transformar Arquivo\"(#\"Arquivo de Amostra\"))),",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(#\"Coluna de Tabela Expandida1\",{{\"Data_Venda\", type date}, {\"Data_Entrega\", type date}, {\"ID_Canal\", Int64.Type}, {\"ID_Cliente\", Int64.Type}, {\"ID_Pedido\", Int64.Type}, {\"ID_Produto\", type text}, {\"Qtde\", Int64.Type}, {\"Valor Total\", type number}}),",
+                "    #\"Linhas Filtradas\" = Table.SelectRows(#\"Tipo Alterado\", each [ID_Produto] <> null and [ID_Produto] <> \"\")",
+                "in",
+                "    #\"Linhas Filtradas\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_calendario",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "1518c7e272744aa29755ff0c91283ee9"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Data",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Short Date",
+            "isDataTypeInferred": true,
+            "isKey": true,
+            "isNameInferred": false,
+            "lineageTag": "918db22a-b0d2-4ca7-9086-cf1d4e8d4d5f",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Ano",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "expression": "YEAR([Data])",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "lineageTag": "5a7c0cea-2667-440d-8110-e51962e17148",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Mes",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "expression": "MONTH([Data])",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "lineageTag": "37449ba6-679c-48ff-ad4d-276e97c4ecba",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Nome do Mes",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "expression": "FORMAT([Data], \"mmm\")",
+            "isDataTypeInferred": true,
+            "lineageTag": "3cb100a8-e991-4509-bb1a-0d2a3bdc742b",
+            "sortByColumn": "Mes",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Semestre",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "expression": [
+              "",
+              "IF(",
+              "    [Mes] < 7,",
+              "    1,",
+              "    2",
+              ")"
+            ],
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "lineageTag": "c7fd17be-aa9d-40d6-b4bb-046a9f43e3c4",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Nome do Semestre",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "expression": "CONCATENATE(\"S\", [Semestre])",
+            "isDataTypeInferred": true,
+            "lineageTag": "573a3f59-5f97-4632-ac4d-e3342cb545a0",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Trimestre",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "expression": [
+              "",
+              "SWITCH(",
+              "    TRUE(),",
+              "    [Mes] < 4, 1,",
+              "    [Mes] < 7, 2,",
+              "    [Mes] < 10, 3,",
+              "    4",
+              ")"
+            ],
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "lineageTag": "b249d0ad-6679-472b-8967-35bfb7ce70e3",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Nome do Trimestre",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "expression": "CONCATENATE(\"Q\", [Trimestre])",
+            "isDataTypeInferred": true,
+            "lineageTag": "81914aae-05c0-442c-8711-216114bd7183",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Dia",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "expression": "DAY([Data])",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "lineageTag": "ab4025dd-2a1b-4190-b815-caeb5d6687c8",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Dia da Semana",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "expression": "FORMAT([Data], \"ddd\")",
+            "isDataTypeInferred": true,
+            "lineageTag": "1a6ad5d9-0eba-4891-87e1-1153d27e9644",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Semana",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "expression": "WEEKNUM([Data])",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "lineageTag": "526f2d3d-d8ce-46ba-a441-736d8d96ad15",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Ano de Faturamento?",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "expression": [
+              "",
+              "var min_ano = YEAR(MIN(fato_vendas[Data_Venda]))",
+              "var max_ano = YEAR(MAX(fato_vendas[Data_Venda]))",
+              "",
+              "return",
+              "IF([Ano] >= min_ano && [Ano] <= max_ano, \"Sim\", \"Não\")"
+            ],
+            "isDataTypeInferred": true,
+            "lineageTag": "d612e354-31bb-46ac-8ffc-24ac387c021a",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "dataCategory": "Time",
+        "lineageTag": "86bfb6f8-3b50-4414-9fc3-72a2199bc219",
+        "partitions": [
+          {
+            "name": "dim_calendario-f7e2b941-6b90-4d9b-a665-ebd616c5d6cb",
+            "mode": "import",
+            "source": {
+              "expression": "CALENDARAUTO()",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "aux_analise",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Análise",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "SortByColumn"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "c61059fc-e139-4467-bc23-33e3eb9490ec",
+            "sortByColumn": "ID",
+            "sourceColumn": "Análise",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "90ab104a-3b75-445a-a743-77db747883c8",
+            "sourceColumn": "ID",
+            "summarizeBy": "count"
+          }
+        ],
+        "lineageTag": "95ff14b9-11e8-4f53-a564-1cca49d68a63",
+        "partitions": [
+          {
+            "name": "aux_analise-f7def84b-fd1c-484a-82af-a12f966fa981",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i45WCkpNTs0sSVRwKiotSVTSUTJRitVBiPocXltYmpkCkjADS4QUZSaVluQXAwVMwQLOpcUQrjmY65tYlJ6aC+RagLkuqcXJ+Xkl+UABY7CAW2JJaVFibipQDGwlSMYILBNYmphXArQqJRUoZKgUGwsA\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Análise = _t, ID = _t]),",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(Fonte,{{\"ID\", Int64.Type}})",
+                "in",
+                "    #\"Tipo Alterado\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "dim_cidade",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ID_Cidade",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "ec4579bb-4e90-4b47-941a-2d3bc11fa126",
+            "sourceColumn": "ID_Cidade",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Cidade",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataCategory": "City",
+            "dataType": "string",
+            "lineageTag": "0684173c-c57a-42a1-b9d7-c99e011b1337",
+            "sourceColumn": "Cidade",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "UF",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataCategory": "StateOrProvince",
+            "dataType": "string",
+            "lineageTag": "67448aa9-09dd-41b2-99a0-fb0ec7083b44",
+            "sourceColumn": "UF",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "3ff59001-0375-4675-a6f3-412ff863206e",
+        "partitions": [
+          {
+            "name": "dim_cidade-5871ee93-b533-466a-92ef-f3f88a30a41c",
+            "mode": "import",
+            "queryGroup": "Dimensão",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Excel.Workbook(File.Contents(Caminho & \"Dimensão\\Cidade.xlsx\"), null, true),",
+                "    Cidade_Table = Fonte{[Item=\"Cidade\",Kind=\"Table\"]}[Data],",
+                "    #\"Tipo Alterado\" = Table.TransformColumnTypes(Cidade_Table,{{\"ID_Cidade\", Int64.Type}, {\"Cidade\", type text}, {\"UF\", type text}})",
+                "in",
+                "    #\"Tipo Alterado\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Tab_Medidas",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "changedProperties": [
+          {
+            "property": "Name"
+          }
+        ],
+        "lineageTag": "8d825ef0-5b56-424e-9169-364a9675b9ed",
+        "measures": [
+          {
+            "name": "Receita Bruta",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 01",
+            "expression": "SUM(fato_vendas[Valor Total]) ",
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "16f7cf72-4593-4374-b37e-0751e6e06200"
+          },
+          {
+            "name": "Receita Bruta - Apple | Samsung",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 3",
+            "expression": [
+              "",
+              "    CALCULATE(",
+              "        [Receita Bruta],",
+              "        dim_marca[Marca] IN {\"Apple\", \"Samsung\"}",
+              "    )"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "772bdb48-c728-4f36-adda-58e67da2379e"
+          },
+          {
+            "name": "Receita Bruta - Entregue",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 3",
+            "expression": [
+              "",
+              "    CALCULATE(",
+              "        [Receita Bruta],",
+              "        USERELATIONSHIP(dim_calendario[Data], fato_vendas[Data_Entrega])",
+              "        )"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "86e98e3c-69d3-49cf-8c7a-785c071d09c7"
+          },
+          {
+            "name": "Faturamento Bruto",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 4",
+            "expression": [
+              "",
+              " SUMX(",
+              "    fato_vendas,",
+              "    fato_vendas[Qtde] * RELATED(dim_produto[Preco_Unitario])",
+              " )"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "db8fdfdd-cf20-49ba-9d29-8b112dac1243"
+          },
+          {
+            "name": "Custo",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 4",
+            "expression": [
+              "",
+              " SUMX(",
+              "    fato_vendas,",
+              "    fato_vendas[Qtde] * RELATED(dim_produto[Custo])",
+              " )"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "78fce48d-4d0a-4993-9b9b-028d72616dc5"
+          },
+          {
+            "name": "Tributos",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 4",
+            "expression": [
+              "",
+              " SUMX(",
+              "    fato_vendas,",
+              "    fato_vendas[Qtde] * RELATED(dim_produto[Tributos])",
+              " )"
+            ],
+            "lineageTag": "bc62ff03-d81e-4b73-9199-79c00cfcaad2"
+          },
+          {
+            "name": "Média de Faturamento",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 4",
+            "expression": [
+              "",
+              " AVERAGEX(",
+              "    ALLSELECTED(dim_calendario[Ano]),",
+              "    [Faturamento Bruto]",
+              " )",
+              ""
+            ],
+            "lineageTag": "ef85375f-a4ef-49c2-b550-13077ec8d208"
+          },
+          {
+            "name": "Menor Faturamento",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 4",
+            "expression": [
+              "",
+              "    MINX(",
+              "        ALLSELECTED(dim_calendario[Ano]),",
+              "        [Faturamento Bruto]",
+              " )",
+              ""
+            ],
+            "lineageTag": "8539d095-edd7-4221-81de-ea6cd6ce8231"
+          },
+          {
+            "name": "Maior Faturamento",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 4",
+            "expression": [
+              "",
+              "    MAXX(",
+              "        ALLSELECTED(dim_calendario[Ano]),",
+              "        [Faturamento Bruto]",
+              " )",
+              ""
+            ],
+            "lineageTag": "2bebcb33-7bd8-40e4-b981-4af0cb3c4498"
+          },
+          {
+            "name": "% Desconto",
+            "displayFolder": "Aula 5",
+            "expression": [
+              "",
+              "DIVIDE([Faturamento Bruto] - [Receita Bruta], [Faturamento Bruto], 0)"
+            ],
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "fa3c0ad2-a78b-46fc-be61-0c9c06947008"
+          },
+          {
+            "name": "Receita Líquida",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 5",
+            "expression": "[Faturamento Bruto] - [Tributos]",
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "f1d4fd63-692e-49a8-979e-476fe6d52b4c"
+          },
+          {
+            "name": "Margem",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 5",
+            "expression": "[Receita Líquida] - [Custo] ",
+            "lineageTag": "9d3ff206-6cc4-40b2-96c2-cefd35d45160"
+          },
+          {
+            "name": "% Margem",
+            "displayFolder": "Aula 5",
+            "expression": [
+              "",
+              "DIVIDE([Margem], [Receita Líquida], 0)"
+            ],
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "342a19e0-7a1d-4182-8c24-be6cff9b3235"
+          },
+          {
+            "name": "Pedidos",
+            "displayFolder": "Aula 5",
+            "expression": "DISTINCTCOUNT(fato_vendas[ID_Pedido]) ",
+            "formatString": "0",
+            "lineageTag": "5e465fff-0fc0-4074-a91a-cd423cb2203f"
+          },
+          {
+            "name": "RB All",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 6",
+            "expression": [
+              "",
+              " CALCULATE(",
+              "    [Receita Bruta],",
+              "    ALL(fato_vendas)",
+              " )"
+            ],
+            "lineageTag": "4b3841bb-150f-4d57-a78d-c4109579d50b"
+          },
+          {
+            "name": "RB Filter + All",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 6",
+            "expression": [
+              "",
+              " CALCULATE(",
+              "    [Receita Bruta],",
+              "    FILTER(",
+              "        ALL(dim_marca[Marca]),",
+              "            dim_marca[Marca] = \"Apple\"",
+              "        ))"
+            ],
+            "lineageTag": "dc4e4c02-6211-4630-8f49-476c484efa99"
+          },
+          {
+            "name": "RB Filter + All Selected",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 6",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    [Receita Bruta],",
+              "    FILTER(",
+              "        ALLSELECTED(dim_marca[Marca]),",
+              "        dim_marca[Marca] = \"Apple\"",
+              "        )",
+              "    )"
+            ],
+            "lineageTag": "7f8516e8-90b4-4db4-82dc-2f73aba6023d"
+          },
+          {
+            "name": "RB Filter + Values",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 6",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    [Receita Bruta],",
+              "    FILTER(",
+              "        VALUES(dim_marca[Marca]),",
+              "        dim_marca[Marca] = \"Apple\"",
+              "    )",
+              ")",
+              ""
+            ],
+            "lineageTag": "fae0d046-7932-45b5-9197-8ef53fb28354"
+          },
+          {
+            "name": "% Share RB",
+            "displayFolder": "Aula 6",
+            "expression": [
+              "",
+              "DIVIDE(",
+              "    [Receita Bruta],",
+              "    [RB Values], ",
+              "    0",
+              ")"
+            ],
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "c4074372-04b3-4f30-b538-a5a830c25a42"
+          },
+          {
+            "name": "RB Values",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 6",
+            "expression": [
+              "",
+              " CALCULATE(",
+              "    [Receita Bruta],",
+              "    ALLSELECTED(fato_vendas)",
+              " )"
+            ],
+            "lineageTag": "766c9a65-cfed-4f3c-a6c7-f07c8e7451ea"
+          },
+          {
+            "name": "Isinscope",
+            "displayFolder": "Aula 7",
+            "expression": "ISINSCOPE(dim_marca[Marca]) ",
+            "formatString": "\"TRUE\";\"TRUE\";\"FALSE\"",
+            "lineageTag": "765721ef-0d97-417a-bda6-7285066446a5"
+          },
+          {
+            "name": "Selected Value Categoria",
+            "displayFolder": "Aula 7",
+            "expression": "SELECTEDVALUE(dim_categoria[Categoria], \"Selecione uma categoria\")",
+            "lineageTag": "457be967-3fd0-43ca-bf77-96e7f359e4d3"
+          },
+          {
+            "name": "if Subtotal",
+            "displayFolder": "Aula 8",
+            "expression": [
+              "",
+              "    IF([Isinscope],",
+              "    \"Marca\",",
+              "    \"Subtotal\"",
+              "    )"
+            ],
+            "lineageTag": "5fa6cec3-062d-4c48-9496-860fc56bc3b3"
+          },
+          {
+            "name": "if Canal",
+            "displayFolder": "Aula 8",
+            "expression": [
+              "",
+              "IF(",
+              "    [HasoneValue Marca],",
+              " IF(",
+              "    SELECTEDVALUE(dim_canal[Descricao_Canal]) = \"Internet\",",
+              "    1,",
+              "    2",
+              " ),",
+              " BLANK()",
+              " )"
+            ],
+            "formatString": "0",
+            "lineageTag": "4bcde37e-10f6-4005-9653-daebf8f95ca9"
+          },
+          {
+            "name": "HasoneValue Marca",
+            "displayFolder": "Aula 8",
+            "expression": "HASONEVALUE(dim_canal[Descricao_Canal]) ",
+            "formatString": "\"TRUE\";\"TRUE\";\"FALSE\"",
+            "lineageTag": "267d6a94-1333-4ae8-b5e7-bf6b88ea0bb2"
+          },
+          {
+            "name": "SWITCH CANAL",
+            "displayFolder": "Aula 8",
+            "expression": [
+              "",
+              "SWITCH(",
+              "    TRUE(),",
+              "    SELECTEDVALUE(dim_canal[Descricao_Canal]) = \"Internet\", 1,",
+              "    SELECTEDVALUE(dim_canal[Descricao_Canal]) = \"Loja Física\", 2,",
+              "    BLANK()",
+              ")"
+            ],
+            "formatString": "0",
+            "lineageTag": "deb994a7-2aa5-4607-88b5-49cf519c7ba1"
+          },
+          {
+            "name": "Switch Categoria e Marca",
+            "displayFolder": "Aula 8",
+            "expression": [
+              "",
+              " SWITCH(",
+              "    TRUE(),",
+              "    ISINSCOPE(dim_subcategoria[Subcategoria]), \"Subcategoria\",",
+              "    ISINSCOPE(dim_marca[Marca]), \"Marca\",",
+              "    ISINSCOPE(dim_categoria[Categoria]), \"Categoria\",",
+              "    BLANK()",
+              " )",
+              ""
+            ],
+            "lineageTag": "1e583aaf-9e8f-499b-be1d-1df2387feadc"
+          },
+          {
+            "name": "% Share Proporcional",
+            "displayFolder": "Aula 9",
+            "expression": [
+              "",
+              "VAR total_geral = CALCULATE([Receita Bruta], ALLSELECTED(fato_vendas))",
+              "VAR total_marca = CALCULATE([Receita Bruta], ALLSELECTED(dim_categoria[Categoria]))",
+              "VAR total_categoria = CALCULATE([Receita Bruta], ALLSELECTED(dim_subcategoria[Subcategoria]))",
+              "",
+              "RETURN",
+              "SWITCH(",
+              "    TRUE(),",
+              "    [Receita Bruta] = BLANK(), BLANK(),",
+              "    ISINSCOPE(dim_subcategoria[Subcategoria]), ",
+              "        DIVIDE([Receita Bruta], total_categoria, 0),",
+              "    ISINSCOPE(dim_categoria[Categoria]), ",
+              "        DIVIDE([Receita Bruta], total_marca, 0),",
+              "    DIVIDE([Receita Bruta], total_geral, 0)",
+              "    )"
+            ],
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "597dd7e6-3f83-47b1-a2d4-b8dcd7ee1767"
+          },
+          {
+            "name": "Rank",
+            "displayFolder": "Aula 10",
+            "expression": [
+              "",
+              "VAR categoria =  RANKX(",
+              "        ALL(dim_categoria[Categoria]),",
+              "        [Medida Dinâmica],,",
+              "        DESC",
+              "    )",
+              " VAR subcategoria =  RANKX(",
+              "        ALL(dim_subcategoria[Subcategoria]),",
+              "        [Medida Dinâmica],,",
+              "        DESC",
+              "    )",
+              " VAR produto =  RANKX(",
+              "        ALL(dim_produto[Descricao_Produto]),",
+              "        [Medida Dinâmica],,",
+              "        DESC",
+              "    )",
+              "RETURN",
+              "SWITCH(",
+              "    TRUE(),",
+              "    [Medida Dinâmica] = BLANK(), BLANK(),",
+              "    ISINSCOPE(dim_produto[Descricao_Produto]), produto, ",
+              "    ISINSCOPE(dim_subcategoria[Subcategoria]), subcategoria, ",
+              "    ISINSCOPE(dim_categoria[Categoria]), categoria,",
+              "    BLANK()",
+              ")",
+              ""
+            ],
+            "formatString": "0",
+            "lineageTag": "eeda6086-b8ce-4d24-98ac-dcd3e48571f4"
+          },
+          {
+            "name": "Top_N",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 10",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    [Receita Bruta],",
+              "    KEEPFILTERS(",
+              "    TOPN(5,",
+              "    ALLSELECTED(dim_subcategoria[Subcategoria]),",
+              "    [Receita Bruta],",
+              "    DESC",
+              "    )",
+              "    )",
+              ")",
+              ""
+            ],
+            "lineageTag": "89ae55d7-5c8d-4550-9dbb-4038fb757878"
+          },
+          {
+            "name": "Top_N Dinâmico",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 10",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    [Receita Bruta],",
+              "    KEEPFILTERS(",
+              "    TOPN(",
+              "        [Valor aux_top_n],",
+              "    ALLSELECTED(dim_subcategoria[Subcategoria]),",
+              "    [Receita Bruta],",
+              "    DESC",
+              "    )",
+              "    )",
+              ")",
+              ""
+            ],
+            "lineageTag": "6d30d7fa-ab8a-4b37-80da-a591830fcfbf"
+          },
+          {
+            "name": "Receita Bruta Acumulada Por Data",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 11",
+            "expression": [
+              "",
+              " CALCULATE(",
+              "    [Receita Bruta],",
+              "    FILTER(",
+              "        ALLSELECTED(dim_calendario),",
+              "        dim_calendario[Data] <= MAX(fato_vendas[Data_Venda])",
+              "    )",
+              ")"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "deda848e-d574-427a-bcde-4090460ef93d"
+          },
+          {
+            "name": "Receita Bruta Acumulada Rank",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 11",
+            "expression": [
+              "",
+              " CALCULATE(",
+              "    [Receita Bruta],",
+              "    TOPN(",
+              "        [Rank],",
+              "        ALLSELECTED(dim_subcategoria[Subcategoria]),",
+              "        [Receita Bruta],",
+              "        DESC",
+              "    )",
+              " )"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "ba668f3a-fd27-4ef0-9553-cc5d6aa4bcca"
+          },
+          {
+            "name": "RB Dia Anterior",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 12",
+            "expression": [
+              "",
+              " CALCULATE(",
+              "    [Receita Bruta],",
+              "    PREVIOUSDAY(dim_calendario[Data])",
+              " )"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "8f59880c-7bc0-433e-9d2c-9dd535e38828"
+          },
+          {
+            "name": "RB Mês Anterior",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 12",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    [Receita Bruta],",
+              "    PREVIOUSMONTH(dim_calendario[Data])",
+              ")"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "0f472a54-8dd7-471b-be16-92f517524eab"
+          },
+          {
+            "name": "RB Trimestre Anterior",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 12",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    [Receita Bruta],",
+              "    PREVIOUSQUARTER(dim_calendario[Data])",
+              ")"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "ad9b56d7-c7e4-44b4-9d91-fb3da6a31f6e"
+          },
+          {
+            "name": "RB Ano Anterior",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 12",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    [Receita Bruta],",
+              "    PREVIOUSYEAR(dim_calendario[Data])",
+              ")"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "4f97e9a8-5cda-415d-ac29-0dbca324a8ba"
+          },
+          {
+            "name": "RB total_YTD",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 13",
+            "expression": "TOTALYTD([Receita Bruta], dim_calendario[Data]) ",
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "c8fd01c4-99bf-41df-832b-c3ec2828bf62"
+          },
+          {
+            "name": "RB total_QTD",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 13",
+            "expression": "TOTALQTD([Receita Bruta], dim_calendario[Data]) ",
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "1b9fd2d9-f94f-4766-b610-5299a51b8cfb"
+          },
+          {
+            "name": "RB total_MTD",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 13",
+            "expression": "TOTALMTD([Receita Bruta], dim_calendario[Data]) ",
+            "lineageTag": "ec69a3b8-3e3a-45c1-ac80-974be6782776"
+          },
+          {
+            "name": "RB total_YTD Ajustada",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 13",
+            "expression": [
+              "",
+              "VAR Rb_Acumulado = TOTALYTD([Receita Bruta], dim_calendario[Data]) ",
+              "",
+              "RETURN",
+              "CALCULATE(",
+              "    Rb_Acumulado,",
+              "    ALLSELECTED(dim_calendario),",
+              "    dim_calendario[Data] <= MAX(fato_vendas[Data_Venda]",
+              ")",
+              ")"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "5f1f88da-30a6-488f-94bb-34220af94140"
+          },
+          {
+            "name": "RB LY Sameperiodlastyear",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 14",
+            "expression": [
+              "",
+              "CALCULATE(",
+              "    [Receita Bruta],",
+              "    SAMEPERIODLASTYEAR(dim_calendario[Data])",
+              ")"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "296fefb6-785b-4b3b-a816-80e75e31a876"
+          },
+          {
+            "name": "RB LD Date_Add",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 14",
+            "expression": [
+              "",
+              " CALCULATE(",
+              "    [Receita Bruta],",
+              "    DATEADD( dim_calendario[Data], -1,DAY)",
+              " )"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "9d019ade-7c6d-40c7-b23f-ffb63400714f"
+          },
+          {
+            "name": "RB LY Date_Add Year",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 14",
+            "expression": [
+              "",
+              " CALCULATE(",
+              "    [Receita Bruta],",
+              "    DATEADD( dim_calendario[Data], -1, YEAR)",
+              " )"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "7a1ac3c2-9a47-410b-b915-e176236d517f"
+          },
+          {
+            "name": "RB LM Date_Add Month",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 14",
+            "expression": [
+              "",
+              " CALCULATE(",
+              "    [Receita Bruta],",
+              "    DATEADD( dim_calendario[Data], -1, MONTH)",
+              " )"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "a5a4bf54-b07e-48b5-a4ce-027849b48f18"
+          },
+          {
+            "name": "RB LQ Date_Add Trimestre",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 14",
+            "expression": [
+              "",
+              " CALCULATE(",
+              "    [Receita Bruta],",
+              "    DATEADD( dim_calendario[Data], -1, QUARTER)",
+              " )"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "4c7d4dd2-5bd4-40b4-b089-abb379d3606f"
+          },
+          {
+            "name": "% Pareto Simples",
+            "displayFolder": "Aula 15",
+            "expression": [
+              "",
+              "",
+              "VAR total = CALCULATE([Receita Bruta], ALLSELECTED(dim_subcategoria[Subcategoria]))",
+              "",
+              "RETURN",
+              "    DIVIDE(",
+              "        [Receita Bruta Acumulada Rank],",
+              "        total,",
+              "        0",
+              "    )",
+              ""
+            ],
+            "formatString": "0.00%;-0.00%;0.00%",
+            "lineageTag": "11fc07f6-bf0d-49aa-8b7d-99aa3197be88"
+          },
+          {
+            "name": "RB Acc Pareto",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 15",
+            "expression": [
+              "",
+              " VAR categoria = CALCULATE([Receita Bruta],TOPN([Rank],ALLSELECTED(dim_categoria[Categoria]), [Receita Bruta], DESC))",
+              " VAR subcategoria = CALCULATE([Receita Bruta],TOPN([Rank],ALLSELECTED(dim_subcategoria[Subcategoria]), [Receita Bruta], DESC))",
+              "  VAR produto = CALCULATE([Receita Bruta],TOPN([Rank],ALLSELECTED(dim_produto[Descricao_Produto]), [Receita Bruta], DESC))",
+              "",
+              "  RETURN",
+              "  SWITCH(",
+              "    TRUE(),",
+              "    ISINSCOPE(dim_produto[Descricao_Produto]), produto,",
+              "    ISINSCOPE(dim_subcategoria[Subcategoria]), subcategoria,",
+              "    ISINSCOPE(dim_categoria[Categoria]), categoria",
+              "  )"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "a08cac72-c577-44d9-9e25-7d700de882fd"
+          },
+          {
+            "name": "% Pareto",
+            "displayFolder": "Aula 15",
+            "expression": [
+              "",
+              "",
+              "VAR total = CALCULATE([Receita Bruta], ALLSELECTED(fato_vendas))",
+              "",
+              "RETURN",
+              "    DIVIDE(",
+              "        [RB Acc Pareto],",
+              "        total,",
+              "        0",
+              "    )",
+              ""
+            ],
+            "formatString": "0%;-0%;0%",
+            "lineageTag": "627011a2-f329-4630-b215-2883e1ac9426"
+          },
+          {
+            "name": "Condicional Pareto",
+            "displayFolder": "Aula 15",
+            "expression": [
+              "",
+              "IF(",
+              "    [% Pareto] <= 0.8, ",
+              "    1,",
+              "    0",
+              ")"
+            ],
+            "formatString": "0",
+            "lineageTag": "0bfeb7b3-927a-4904-9f9c-7a9428ad1193"
+          },
+          {
+            "name": "Total Movél Receita Bruta",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 16",
+            "expression": [
+              "",
+              "VAR data = MAX(dim_calendario[Data])",
+              "",
+              "RETURN",
+              "CALCULATE(",
+              "    [Receita Bruta],",
+              "    DATESBETWEEN(dim_calendario[Data],",
+              "    data - [Valor aux_MeidaMovel],",
+              "    data)",
+              "    )",
+              "    "
+            ],
+            "lineageTag": "64001df0-32c9-419e-acc0-d9875c1b57ca"
+          },
+          {
+            "name": "Média Movél",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 16",
+            "expression": [
+              "",
+              "VAR data = MAX(dim_calendario[Data])",
+              "",
+              "RETURN",
+              "AVERAGEX(",
+              "    DATESBETWEEN(dim_calendario[Data],",
+              "    data - [Valor aux_MeidaMovel],",
+              "    data",
+              "    ),",
+              "    [Receita Bruta]",
+              "    )",
+              "    "
+            ],
+            "lineageTag": "fc780b7a-7f49-4a2c-a82a-f9aae08a61dc"
+          },
+          {
+            "name": "Quantidade",
+            "displayFolder": "Aula 01",
+            "expression": "SUM(fato_vendas[Qtde])",
+            "formatString": "#,0",
+            "lineageTag": "9d90cdeb-55d5-4a30-b8b9-256fc3362615"
+          },
+          {
+            "name": "Medida Dinâmica",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "displayFolder": "Aula 16",
+            "expression": [
+              "",
+              "VAR medida = SELECTEDVALUE(aux_medidas[Medidas])",
+              "",
+              "RETURN",
+              "SWITCH(",
+              "    TRUE(),",
+              "        medida = \"Quantidade\", [Quantidade],",
+              "        medida = \"Receita Bruta\", [Receita Bruta],",
+              "        medida = \"Receita Líquida\", [Receita Líquida],",
+              "        medida = \"Margem\", [Margem],",
+              "        medida = \"% Margem\", [% Margem],",
+              "        medida = \"% Desconto\", [% Desconto],",
+              "        medida = \"Pedidos\", [Pedidos]",
+              ")",
+              "        "
+            ],
+            "lineageTag": "ca331479-474d-4017-a4d9-79c41104e195"
+          },
+          {
+            "name": "Título Dinâmico",
+            "displayFolder": "Aula 16",
+            "expression": [
+              "",
+              "",
+              "VAR dimensao_selecionada = SELECTEDVALUE('aux_Período'[aux_Período Pedido])",
+              "",
+              "VAR dimesao = ",
+              "SWITCH(",
+              "    TRUE(),",
+              "    dimensao_selecionada = 0, \"Ano\",",
+              "    dimensao_selecionada = 1, \"Semestre\",",
+              "    dimensao_selecionada = 2, \"Trimestre\",",
+              "    dimensao_selecionada = 3, \"Semana\",",
+              "    dimensao_selecionada = 4, \"Mês\",",
+              "    dimensao_selecionada = 5, \"Dia\")",
+              "",
+              "",
+              "RETURN",
+              "",
+              "SELECTEDVALUE(aux_medidas[Medidas]) & \" Por \" & dimesao",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "lineageTag": "46be822d-854e-4ca4-8e70-4745f7848c92"
+          },
+          {
+            "name": "Formatação Condicional Dinâmica",
+            "displayFolder": "Aula 16",
+            "expression": [
+              "",
+              "",
+              "VAR medida = SELECTEDVALUE(aux_medidas[Medidas])",
+              "",
+              "RETURN",
+              "",
+              "SWITCH(",
+              "    TRUE(),",
+              "    medida IN {\"Quantidade\", \"Pedidos\"}, \"#438fff\",",
+              "    medida IN {\"% Margem\", \"% Desconto\"}, \"#a22b38\",",
+              "    \"#277d34\"",
+              ")",
+              "",
+              "",
+              ""
+            ],
+            "lineageTag": "493f3110-c20a-47c9-bb7d-87c43bde68bd"
+          },
+          {
+            "name": "Quantidade de cenário",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isDecimal\":true}"
+              }
+            ],
+            "displayFolder": "Aula 17",
+            "expression": [
+              "",
+              "[Quantidade] * (1 + 'aux_Cenário_Qtde'[Valor aux_Cenário_Qtde])"
+            ],
+            "formatString": "#,0",
+            "lineageTag": "36addf0c-165b-447b-9430-49c5aa0808a8"
+          },
+          {
+            "name": "Delta Qtde",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isDecimal\":true}"
+              }
+            ],
+            "displayFolder": "Aula 17",
+            "expression": "[Quantidade de cenário] - [Quantidade] ",
+            "formatString": "#,0",
+            "lineageTag": "5bf0128d-495a-4e47-a324-e16bcd9a5303"
+          },
+          {
+            "name": "Custo Cenário",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 17",
+            "expression": [
+              "",
+              " SUMX(",
+              "    fato_vendas,",
+              "    (fato_vendas[Qtde] * (1 + [Valor aux_Cenário_Qtde])) * (RELATED(dim_produto[Custo]) * (1 + [Valor aux_cenario_custo])",
+              " ))"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "17b81e58-5e2d-4d49-9f9d-5b166cc46801"
+          },
+          {
+            "name": "Receita Líquida Cenário",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"pt-BR\"}"
+              }
+            ],
+            "displayFolder": "Aula 17",
+            "expression": [
+              "",
+              "VAR fat_bruto =",
+              "SUMX(",
+              "    fato_vendas,",
+              "    [Quantidade de cenário] * (RELATED(dim_produto[Preco_Unitario]) * (1 + 'aux_preço_unitario'[Valor aux_preço_unitario])))",
+              "",
+              "VAR receita_bruta = ",
+              "fat_bruto - (fat_bruto * [% Desconto])",
+              "",
+              "VAR receita_liquida = receita_bruta - [Tributos]",
+              "",
+              "RETURN",
+              "receita_liquida"
+            ],
+            "formatString": "\"R$\"\\ #,0;-\"R$\"\\ #,0;\"R$\"\\ #,0",
+            "lineageTag": "371f938d-1a3c-4409-9d34-1858f3066c94"
+          },
+          {
+            "name": "% Margem Cenário",
+            "displayFolder": "Aula 17",
+            "expression": [
+              "",
+              "VAR margem = [Receita Líquida Cenário] - [Custo Cenário]",
+              "",
+              "RETURN",
+              "DIVIDE(",
+              "    margem,",
+              "    [Receita Líquida Cenário],",
+              "    0)"
+            ],
+            "formatString": "0%;-0%;0%",
+            "lineageTag": "e4226b23-4e10-4336-bedc-b8b3ddccbabe"
+          },
+          {
+            "name": "Segmentação Produto",
+            "expression": [
+              "",
+              "",
+              "VAR LimiteInferior = MIN(aux_segmentacao[Min])",
+              "VAR LimiteSuperior = MAX(aux_segmentacao[Max])",
+              "",
+              "RETURN",
+              "",
+              "CALCULATE(",
+              "    [Medida Dinâmica],",
+              "    FILTER(",
+              "        VALUES(dim_produto[Descricao_Produto]),",
+              "        [Rank] >= LimiteInferior && [Rank] <= LimiteSuperior",
+              "    )",
+              ")"
+            ],
+            "formatString": "0",
+            "lineageTag": "a5c76501-db81-49a5-81a1-74747b1a347c"
+          },
+          {
+            "name": "Rank Segmentação",
+            "expression": [
+              "",
+              "SWITCH(",
+              "    TRUE(),",
+              "    NOT(ISINSCOPE(dim_produto[Descricao_Produto])), BLANK(),",
+              "    ISBLANK([Segmentação Produto]), BLANK(),",
+              "    RANKX(",
+              "        ALL(dim_produto[Descricao_Produto]),",
+              "        [Medida Dinâmica]",
+              "    )",
+              ")"
+            ],
+            "formatString": "0",
+            "lineageTag": "b21797dc-7dc6-44f8-b20b-5664f81bb014"
+          },
+          {
+            "name": "% Share Segmentação",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": [
+              "",
+              "",
+              "VAR total_geral = ",
+              "CALCULATE(",
+              "    [Medida Dinâmica],",
+              "    ALL(dim_produto[Descricao_Produto])",
+              ")",
+              "",
+              "VAR total_contexto = ",
+              "CALCULATE(",
+              "    [Segmentação Produto],",
+              "    ALL(dim_produto[Descricao_Produto])",
+              "    )",
+              "",
+              "RETURN",
+              "",
+              "SWITCH(",
+              "    TRUE(),",
+              "    ISINSCOPE(dim_produto[Descricao_Produto]), DIVIDE([Segmentação Produto], total_contexto, 0),",
+              "    DIVIDE([Segmentação Produto], total_geral, 0)",
+              ")",
+              "",
+              "",
+              ""
+            ],
+            "lineageTag": "0e1f1992-d45a-4e2f-9030-453d8957ae61"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Tab_Medidas",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i44FAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#\"Coluna 1\" = _t]),",
+                "    #\"Colunas Removidas\" = Table.RemoveColumns(Fonte,{\"Coluna 1\"})",
+                "in",
+                "    #\"Colunas Removidas\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Tabela",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "53bbd9020e004c2aa88989df10329cdc"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Educação",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "a38bde6a-2639-441a-a560-9dce18160c6f",
+            "sourceColumn": "dim_clientes[Educação]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "lineageTag": "652bac03-e253-485c-91c0-0773443a6447",
+        "partitions": [
+          {
+            "name": "Tabela",
+            "mode": "import",
+            "source": {
+              "expression": "FILTER(VALUES(dim_clientes[Educação]), dim_clientes[Educação] = \"Mestrado\")",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "aux_top_n",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "f10b27e6811444549b27f72d89e4b9ed"
+          }
+        ],
+        "columns": [
+          {
+            "name": "aux_top_n",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataType": "int64",
+            "extendedProperties": [
+              {
+                "name": "ParameterMetadata",
+                "type": "json",
+                "value": {
+                  "version": 0
+                }
+              }
+            ],
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isNameInferred": false,
+            "lineageTag": "a3a1387f-d45e-46cd-a60a-3b6c0ba2ac40",
+            "sourceColumn": "[Value]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "lineageTag": "851b4a7e-f854-4038-96c0-d7906c5c73ff",
+        "measures": [
+          {
+            "name": "Valor aux_top_n",
+            "expression": "SELECTEDVALUE('aux_top_n'[aux_top_n], 5)",
+            "formatString": "0",
+            "lineageTag": "66ca0d3b-262f-4b9d-9cd4-729cb71dca61"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "aux_top_n",
+            "mode": "import",
+            "source": {
+              "expression": "GENERATESERIES(1, 10, 1)",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "aux_Produtos",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "7e27959f38254d23a4b3523a023462c0"
+          }
+        ],
+        "columns": [
+          {
+            "name": "aux_Produtos",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isNameInferred": false,
+            "lineageTag": "43d00a39-fde6-4314-b3bb-c0a5828396df",
+            "relatedColumnDetails": {
+              "groupByColumns": [
+                {
+                  "groupingColumn": "aux_Produtos Campos"
+                }
+              ]
+            },
+            "sortByColumn": "aux_Produtos Pedido",
+            "sourceColumn": "[Value1]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "aux_Produtos Campos",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "extendedProperties": [
+              {
+                "name": "ParameterMetadata",
+                "type": "json",
+                "value": {
+                  "kind": 2,
+                  "version": 3
+                }
+              }
+            ],
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "isNameInferred": false,
+            "lineageTag": "7a1dd566-ea51-4484-893f-01106b3c3545",
+            "sortByColumn": "aux_Produtos Pedido",
+            "sourceColumn": "[Value2]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "aux_Produtos Pedido",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "isNameInferred": false,
+            "lineageTag": "e5847db5-c119-45d6-8e14-621c7536776a",
+            "sourceColumn": "[Value3]",
+            "summarizeBy": "sum",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "lineageTag": "40134671-2865-4560-a3ba-196e28ff2404",
+        "partitions": [
+          {
+            "name": "aux_Produtos",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "{",
+                "    (\"Categoria\", NAMEOF('dim_categoria'[Categoria]), 0),",
+                "    (\"Subcategoria\", NAMEOF('dim_subcategoria'[Subcategoria]), 1),",
+                "    (\"Descrição Do Produto\", NAMEOF('dim_produto'[Descricao_Produto]), 2)",
+                "}"
+              ],
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "aux_MeidaMovel",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "3006c78924664ea8bfac92225fa2aee6"
+          }
+        ],
+        "columns": [
+          {
+            "name": "aux_MeidaMovel",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataType": "int64",
+            "extendedProperties": [
+              {
+                "name": "ParameterMetadata",
+                "type": "json",
+                "value": {
+                  "version": 0
+                }
+              }
+            ],
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isNameInferred": false,
+            "lineageTag": "8420d455-a463-46c6-80fc-d338877be25c",
+            "sourceColumn": "[Value]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "lineageTag": "8e1e89ed-b372-4724-b9f2-462f1416b4be",
+        "measures": [
+          {
+            "name": "Valor aux_MeidaMovel",
+            "expression": "SELECTEDVALUE('aux_MeidaMovel'[aux_MeidaMovel], 30)",
+            "formatString": "0",
+            "lineageTag": "62d59909-577d-40db-92f4-df5fca296cd4"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "aux_MeidaMovel",
+            "mode": "import",
+            "source": {
+              "expression": "GENERATESERIES(30, 120, 1)",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "aux_Período",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "3c38ad23da7349aa94ca360e14df6374"
+          }
+        ],
+        "columns": [
+          {
+            "name": "aux_Período",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isNameInferred": false,
+            "lineageTag": "db8d0fc2-ce32-4de7-8330-ae22a53464ad",
+            "relatedColumnDetails": {
+              "groupByColumns": [
+                {
+                  "groupingColumn": "aux_Período Campos"
+                }
+              ]
+            },
+            "sortByColumn": "aux_Período Pedido",
+            "sourceColumn": "[Value1]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "aux_Período Campos",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "extendedProperties": [
+              {
+                "name": "ParameterMetadata",
+                "type": "json",
+                "value": {
+                  "kind": 2,
+                  "version": 3
+                }
+              }
+            ],
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "isNameInferred": false,
+            "lineageTag": "5c902c20-2fff-437d-bea4-019690ceb0e1",
+            "sortByColumn": "aux_Período Pedido",
+            "sourceColumn": "[Value2]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "aux_Período Pedido",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "isNameInferred": false,
+            "lineageTag": "c5d0a688-68b5-4a23-be32-fa36b7e11af4",
+            "sourceColumn": "[Value3]",
+            "summarizeBy": "sum",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "lineageTag": "ddbb86e7-8282-4f4c-ae34-8045edecdacc",
+        "partitions": [
+          {
+            "name": "aux_Período",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "{",
+                "    (\"Ano\", NAMEOF('dim_calendario'[Ano]), 0),",
+                "    (\"Semestre\", NAMEOF('dim_calendario'[Nome do Semestre]), 1),",
+                "    (\"Trimestre\", NAMEOF('dim_calendario'[Nome do Trimestre]), 2),",
+                "    (\"Semana\", NAMEOF('dim_calendario'[Semana]), 3),",
+                "    (\"Mes\", NAMEOF('dim_calendario'[Nome do Mes]), 4),",
+                "    (\"Dia\", NAMEOF('dim_calendario'[Dia]), 5)",
+                "}"
+              ],
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "aux_medidas",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Medidas",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "65bd2fad-8077-483e-b442-a848f31154aa",
+            "sourceColumn": "Medidas",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "eeb4851b-b2f5-4c13-8fc0-f8e1bfab90b1",
+        "partitions": [
+          {
+            "name": "aux_medidas",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i45WCixNzCvJTElMSVWK1YlWCkpNTs0sSVRwKiotSUQR8Tm8trAUqBAs6JtYlJ6aC2aqKqBwXFKLk/PzSvLB3IDUlMyU/GKl2FgA\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Medidas = _t]),",
+                "    #\"Linhas Classificadas\" = Table.Sort(Fonte,{{\"Medidas\", Order.Ascending}})",
+                "in",
+                "    #\"Linhas Classificadas\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "aux_Cenário_Qtde",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "9de57fe858684e44b37656d57229cc2a"
+          }
+        ],
+        "columns": [
+          {
+            "name": "aux_Cenário_Qtde",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataType": "double",
+            "extendedProperties": [
+              {
+                "name": "ParameterMetadata",
+                "type": "json",
+                "value": {
+                  "version": 0
+                }
+              }
+            ],
+            "formatString": "0%;-0%;0%",
+            "isDataTypeInferred": true,
+            "isNameInferred": false,
+            "lineageTag": "17fa57d9-47ed-46bf-982b-cbdb34ba16bd",
+            "sourceColumn": "[Value]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "lineageTag": "0f8f861d-8f09-48a9-87eb-b26e53ec2034",
+        "measures": [
+          {
+            "name": "Valor aux_Cenário_Qtde",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "SELECTEDVALUE('aux_Cenário_Qtde'[aux_Cenário_Qtde], 0)",
+            "lineageTag": "3e27f9f7-eab8-4b17-bdf7-ddb7d45a73ab"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "aux_Cenário_Qtde",
+            "mode": "import",
+            "source": {
+              "expression": "GENERATESERIES(-1, 1, 0.05)",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "aux_cenario_custo",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "2f4c5d209daf49629cf3b08ccc4150b8"
+          }
+        ],
+        "columns": [
+          {
+            "name": "aux_cenario_custo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataType": "double",
+            "extendedProperties": [
+              {
+                "name": "ParameterMetadata",
+                "type": "json",
+                "value": {
+                  "version": 0
+                }
+              }
+            ],
+            "formatString": "0%;-0%;0%",
+            "isDataTypeInferred": true,
+            "isNameInferred": false,
+            "lineageTag": "60fa2ed7-5abe-4e7d-939f-52ed64c36dca",
+            "sourceColumn": "[Value]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "lineageTag": "1f17d277-d87f-4b48-ac2c-b24dd8e9eddb",
+        "measures": [
+          {
+            "name": "Valor aux_cenario_custo",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "SELECTEDVALUE('aux_cenario_custo'[aux_cenario_custo], 0)",
+            "lineageTag": "34d5d0f2-4df1-4ae9-9b9d-bc5467052c0d"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "aux_cenario_custo",
+            "mode": "import",
+            "source": {
+              "expression": "GENERATESERIES(-1, 1, 0.05)",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "aux_preço_unitario",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "7a9d0545fb14426babcd74dff9a85a05"
+          }
+        ],
+        "columns": [
+          {
+            "name": "aux_preço_unitario",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataType": "double",
+            "extendedProperties": [
+              {
+                "name": "ParameterMetadata",
+                "type": "json",
+                "value": {
+                  "version": 0
+                }
+              }
+            ],
+            "formatString": "0%;-0%;0%",
+            "isDataTypeInferred": true,
+            "isNameInferred": false,
+            "lineageTag": "5b2d6ce6-2422-47c3-bc40-ce83f1cc9f53",
+            "sourceColumn": "[Value]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "lineageTag": "107eaf2f-3c73-45be-94c8-be8ba82028ab",
+        "measures": [
+          {
+            "name": "Valor aux_preço_unitario",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "SELECTEDVALUE('aux_preço_unitario'[aux_preço_unitario], 0)",
+            "lineageTag": "a8560a06-21c4-46a5-a92a-044278bdc719"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "aux_preço_unitario",
+            "mode": "import",
+            "source": {
+              "expression": "GENERATESERIES(-1, 1, 0.05)",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "aux_segmentacao",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          },
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navegação"
+          }
+        ],
+        "changedProperties": [
+          {
+            "property": "Name"
+          }
+        ],
+        "columns": [
+          {
+            "name": "ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "0db694b7-611d-4b5a-a549-4e205e8e218a",
+            "sourceColumn": "ID",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Segmentação",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "SortByColumn"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "3f55f831-d476-46f9-a624-26a6f2f5eb90",
+            "sortByColumn": "ID",
+            "sourceColumn": "Segmentação",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Min",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "635292b4-305f-4d95-b8b6-b816ff4f5b09",
+            "sourceColumn": "Min",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Max",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "81821dd9-604a-4ce1-9654-669615069400",
+            "sourceColumn": "Max",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "3c861bb7-bde7-4aa1-ab40-337fb170c2b3",
+        "partitions": [
+          {
+            "name": "aux_segmentacao",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"Vc09DoAgDIbhq5DOmlBrSRy9gxthMOrgYPT+k3wtDjLw9/CGnImpo+V+gtYVe6XSZRrabQp94FgPCRzNpBkz0DqE7OX4KVJBymjFW21aCbXCxb51x9N5O6817IerTdNvUCkv\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [ID = _t, Segmentação = _t, Min = _t, Max = _t])",
+                "in",
+                "    Fonte"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

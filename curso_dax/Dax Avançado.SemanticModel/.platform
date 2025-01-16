@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Dax Avançado"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "beca186a-21c8-4c12-bfb5-18f57804bdfc"
+  }
+}

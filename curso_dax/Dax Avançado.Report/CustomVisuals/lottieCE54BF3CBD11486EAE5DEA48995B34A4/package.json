@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "author": {
+    "name": "Dimas de Campos",
+    "email": "dimasrafting@gmail.com"
+  },
+  "resources": [
+    {
+      "resourceId": "rId0",
+      "sourceType": 5,
+      "file": "resources/lottieCE54BF3CBD11486EAE5DEA48995B34A4.pbiviz.json"
+    }
+  ],
+  "visual": {
+    "guid": "lottieCE54BF3CBD11486EAE5DEA48995B34A4",
+    "name": "lottie",
+    "displayName": "Lottie",
+    "version": "1.0.0",
+    "description": "Facilita inserção lootie no power bi",
+    "supportUrl": "https://github.com/dimasdecampos",
+    "gitHubUrl": "https://github.com/dimasdecampos",
+    "visualClassName": "Visual"
+  },
+  "metadata": {
+    "pbivizjson": {
+      "resourceId": "rId0"
+    }
+  }
+}
