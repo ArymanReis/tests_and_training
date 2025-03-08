@@ -21,6 +21,6 @@ def inserir_dados(nome, cargo, salario):
 
 if __name__ == "__main__":
     # Inserindo dados
-    inserir_dados("Aryman Reis", "Programador", 10000)
-    inserir_dados("Maria Souza", "Analista de Dados", 5000)
-    inserir_dados("Carlos Oliveira", "Gerente", 8000)
+    inserir_dados("Abraão Reis", "Surfista", 15000)
+    inserir_dados("Bruna Souza", "Nutricionista", 9000)
+    inserir_dados("Jean Farias", "Logística", 4000)
